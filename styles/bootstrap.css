@@ -1,7 +1,8 @@
 
 body {
-  background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .4)), url('foodbackground.jpg') no-repeat center center fixed;
+  background: linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), url('foodbackground.jpg') no-repeat center center fixed;
   background-size: cover;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .header {
@@ -9,34 +10,38 @@ body {
   width: 95%;
   text-align: center;
   color: white;
-  font-family: sans-serif;
-  margin: 20px;
+  margin: 30px;
 }
 
 .box {
   background-color: white;
-  font-family: sans-serif;
   padding: 30px;
   border-radius: 10px;
+  background-color: #ededed;
 }
 
 .search-results {
   cursor: pointer;
 }
 
-.search-results:hover {
+.search-results a {
+  color: #555;
+}
+
+.search-results a:hover {
+  color: #00CD00;
+  text-decoration: none;
   font-weight: bold;
 }
 
 .input-group {
   text-align: center;
+  width: 100%;
 }
 
-.form-control{
+.nutritionalValue {
+  font-family: sans-serif;
 }
-
-
-
 
 
 

@@ -11,7 +11,7 @@ angular.module('app', ['ngRoute'])
     .when('/nutrition/:ndbno', {
       templateUrl: 'nutritional-info.html',
       controller: 'nutritionalController'
-    })
+    })        
     .otherwise({
       redirectTo: '/'
     });
@@ -23,12 +23,11 @@ angular.module('app', ['ngRoute'])
 
   Foods.showFoodInfo($routeParams.ndbno).success(function(data){
     var nutrients = data.report.food.nutrients //array of objects
-    console.log(nutrients)
-
     
     for (var i = 0; i <nutrients.length; i++){
       var current = nutrients[i]
       $scope.thisFood.measures = current.measures[0].qty +" "+ current.measures[0].label
+      $scope.thisFood.fooditem = data.report.food.name
       
       if (current.name === 'Energy'){
         $scope.thisFood.calories = current.value + current.unit
@@ -75,9 +74,6 @@ angular.module('app', ['ngRoute'])
     return $http.get('http://api.nal.usda.gov/usda/ndb/reports/?ndbno=' + ndbno +'&type=b&format=json&api_key=kKJ078H1u9KjuD4DLAJK3nPUgFX4SoN2awG94IeR')
   };
 
-  // var filterValues = function(){
-
-  // }
 
   return {showFoodInfo: showFoodInfo, 
     displayFoods: displayFoods, 
