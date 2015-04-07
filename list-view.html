@@ -1,5 +1,7 @@
- <ul> <!-- ng-controller="MainController">-->
-   <span ng-show='click' ng-click='checkClick()'>
-     <p class='search-results' ng-repeat="food in searchItems" ng-click="showFoodInfo(food.ndbno)"> {{ food.name }} </p> 
-   </span>
- </ul>
+<div class='box col-md-6 col-md-offset-3'>
+  <ul>
+    <span>
+      <p class='search-results' ng-repeat="food in searchItems"><a href='#/nutrition/{{food.ndbno}}'> {{ food.name }} </a></p> 
+    </span>
+  </ul>
+</div>

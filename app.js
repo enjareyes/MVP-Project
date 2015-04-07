@@ -1,68 +1,59 @@
 //Enja's super awesome radical nutritional information app.
-angular.module('app', [])
+angular.module('app', ['ngRoute'])
 
 // Using Angular. Yup, just Angular. No server, bro.
-// .config(function($routeProvider, $httpProvider) {
-//   $routeProvider
-//     .when('/searchresults', {
-//       templateUrl: 'list-view.html',
-//       controller: 'MainController'
-//     })
-//     .when('/nutrition', {
-//       templateUrl: 'nutritional-info.html',
-//       controller: 'MainController'
-//     })
-//     .otherwise({
-//       redirectTo: '/'
-//     });
-// })
+.config(function($routeProvider) {
+  $routeProvider
+    .when('/searchresults', {
+      templateUrl: 'list-view.html',
+      controller: 'displayController'
+    })
+    .when('/nutrition/:ndbno', {
+      templateUrl: 'nutritional-info.html',
+      controller: 'nutritionalController'
+    })
+    .otherwise({
+      redirectTo: '/'
+    });
+})
 
-.controller('MainController', function($scope, Foods){
+
+.controller('nutritionalController', function($scope, Foods, $routeParams){ 
+  $scope.thisFood = {}
+
+  Foods.showFoodInfo($routeParams.ndbno).success(function(data){
+    var nutrients = data.report.food.nutrients //array of objects
+    // console.log(nutrients)
+
+    for (var i = 0; i <nutrients.length; i++){
+      var current = nutrients[i]
+      if (current.name === 'Energy'){
+        $scope.thisFood.calories = current.value + current.unit
+      }
+      if (nutrients[i].name === 'Total lipid (fat)'){
+        $scope.thisFood.fat = current.value + current.unit
+      } 
+      if (nutrients[i].name === 'Sugars, total'){
+        $scope.thisFood.sugar = current.value + current.unit
+      } 
+      if (nutrients[i].name === 'Protein'){
+        $scope.thisFood.protein = current.value + current.unit
+      }    
+      if (nutrients[i].name === 'Carbohydrate, by difference'){
+        $scope.thisFood.carbs = current.value + current.unit
+      }   
+      if (nutrients[i].name === 'Fiber, total dietary'){
+        $scope.thisFood.fiber = current.value + current.unit
+      }
+    }
+  })
+})
+
+.controller('displayController', function($scope, Foods){
   
   $scope.displayFoods = function(foodName){ 
     Foods.displayFoods(foodName).success(function(data, status, headers, config){
       $scope.searchItems = data.list.item;
-      console.log($scope.searchItems); 
-    })
-  }
-
-  $scope.click = false;
-  $scope.checkClick = function(){
-    if ($scope.click === false) {
-      $scope.click = true;
-    } else {
-      $scope.click= false;
-    }
-    return $scope.click;
-  }
-
-  $scope.showFoodInfo = function(ndbno){
-    Foods.showFoodInfo(ndbno).success(function(data, status, headers, config){
-      var nutrients = data.report.food.nutrients //array of objects
-      console.log(nutrients)
-      $scope.thisFood = {}
-
-      for (var i = 0; i <nutrients.length; i++){
-        var current = nutrients[i]
-        if (current.name === 'Energy'){
-          $scope.thisFood.calories = current.value + current.unit
-        }
-        if (nutrients[i].name === 'Total lipid (fat)'){
-          $scope.thisFood.fat = current.value + current.unit
-        } 
-        if (nutrients[i].name === 'Sugars, total'){
-          $scope.thisFood.sugar = current.value + current.unit
-        } 
-        if (nutrients[i].name === 'Protein'){
-          $scope.thisFood.protein = current.value + current.unit
-        }    
-        if (nutrients[i].name === 'Carbohydrate, by difference'){
-          $scope.thisFood.carbs = current.value + current.unit
-        }   
-        if (nutrients[i].name === 'Fiber, total dietary'){
-          $scope.thisFood.fiber = current.value + current.unit
-        }
-      }
     })
   }
 })
@@ -81,7 +72,9 @@ angular.module('app', [])
     return $http.get('http://api.nal.usda.gov/usda/ndb/reports/?ndbno=' + ndbno +'&type=b&format=json&api_key=kKJ078H1u9KjuD4DLAJK3nPUgFX4SoN2awG94IeR')
   };
 
+  // var filterValues = function(){
 
+  // }
 
   return {showFoodInfo: showFoodInfo, 
     displayFoods: displayFoods, 
@@ -89,10 +82,12 @@ angular.module('app', [])
   }
 })
 
+
+
+
+
 //In order for our service to get the proper information for the desired food, we must first locate the ndbno number of the food item.
 //NOTE: The ndbno number is a number that each food item in the USDA database is assigned. Think of it as a PLU code for each item in the supermarket.
-
-
 
 //To accomplish this, we must search on the usda api for a list of food items that have a name equal to (or similar to) the user's search.
 //This call will return a list of items that match the search term 'butter'
