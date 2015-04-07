@@ -23,10 +23,13 @@ angular.module('app', ['ngRoute'])
 
   Foods.showFoodInfo($routeParams.ndbno).success(function(data){
     var nutrients = data.report.food.nutrients //array of objects
-    // console.log(nutrients)
+    console.log(nutrients)
 
+    
     for (var i = 0; i <nutrients.length; i++){
       var current = nutrients[i]
+      $scope.thisFood.measures = current.measures[0].qty +" "+ current.measures[0].label
+      
       if (current.name === 'Energy'){
         $scope.thisFood.calories = current.value + current.unit
       }

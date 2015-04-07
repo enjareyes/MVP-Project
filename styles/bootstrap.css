@@ -1,6 +1,5 @@
 
 body {
-  /*background: url('foodbackground.jpg');*/
   background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .4)), url('foodbackground.jpg') no-repeat center center fixed;
   background-size: cover;
 }

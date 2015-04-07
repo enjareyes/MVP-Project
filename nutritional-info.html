@@ -1,11 +1,11 @@
 <div class='box col-md-6 col-md-offset-3'>
   <div class = "nutritionalValue">
-    <!-- {{thisFood}} -->
-    <p>Calories: {{thisFood.calories}}</p>
-    <p>Fat: {{thisFood.fat}}</p>
-    <p>Sugar: {{thisFood.sugar}}</p>
-    <p>Protein: {{thisFood.protein}} </p>
-    <p>Carbohydrates: {{thisFood.carbs}} </p>
-    <p>Protein: {{thisFood.fiber}} </p>   
+    <p>Amount: {{thisFood.measures}} </p>
+    <p>Calories: {{thisFood.calories || 'None'}} </p>
+    <p>Fat: {{thisFood.fat || 'None'}} </p>
+    <p>Sugar: {{thisFood.sugar || 'None'}} </p>
+    <p>Protein: {{thisFood.protein || 'None'}} </p>
+    <p>Carbohydrates: {{thisFood.carbs || 'None'}} </p>
+    <p>Protein: {{thisFood.fiber || 'None'}}  </p>   
   </div>
 </div>
