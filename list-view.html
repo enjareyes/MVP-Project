@@ -1,5 +1,5 @@
  <ul> <!-- ng-controller="MainController">-->
-   <li ng-repeat="food in searchItems" ng-click="showFoodInfo(food.ndbno)">
-     {{ food.name }} 
-   </li> 
+   <span ng-show='click' ng-click='checkClick()'>
+     <p class='search-results' ng-repeat="food in searchItems" ng-click="showFoodInfo(food.ndbno)"> {{ food.name }} </p> 
+   </span>
  </ul>

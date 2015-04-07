@@ -1,7 +1,7 @@
 //Enja's super awesome radical nutritional information app.
 angular.module('app', [])
 
-//Using Angular. Yup, just Angular. No server, bro.
+// Using Angular. Yup, just Angular. No server, bro.
 // .config(function($routeProvider, $httpProvider) {
 //   $routeProvider
 //     .when('/searchresults', {
@@ -91,6 +91,8 @@ angular.module('app', [])
 
 //In order for our service to get the proper information for the desired food, we must first locate the ndbno number of the food item.
 //NOTE: The ndbno number is a number that each food item in the USDA database is assigned. Think of it as a PLU code for each item in the supermarket.
+
+
 
 //To accomplish this, we must search on the usda api for a list of food items that have a name equal to (or similar to) the user's search.
 //This call will return a list of items that match the search term 'butter'

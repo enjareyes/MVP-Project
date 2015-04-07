@@ -1,7 +1,7 @@
 
 body {
   /*background: url('foodbackground.jpg');*/
-  background: linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), url('foodbackground.jpg') no-repeat center center fixed;
+  background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .4)), url('foodbackground.jpg') no-repeat center center fixed;
   background-size: cover;
 }
 
@@ -11,30 +11,35 @@ body {
   text-align: center;
   color: white;
   font-family: sans-serif;
-  font-size: 2em;
-  border-bottom: 2px solid white;
   margin: 20px;
 }
 
-.container {
-  /*text-align: censter;*/
+.box {
   background-color: white;
   font-family: sans-serif;
-  width: 40%;
   padding: 30px;
-  margin: auto;
   border-radius: 10px;
-
 }
 
-li {
-  text-decoration: underline;
+.search-results {
+  cursor: pointer;
+}
+
+.search-results:hover {
+  font-weight: bold;
 }
 
 .input-group {
   text-align: center;
 }
 
-.nutritionalValue {
-
+.form-control{
 }
+
+
+
+
+
+
+
+
