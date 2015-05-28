@@ -1,0 +1,44 @@
+<html lang='en' ng-app='app'>
+
+<head>
+  <script src ='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js'></script>
+  <script src="../bower_components/angular-route/angular-route.js"></script>
+  <script src='../app.js'></script>
+  <link rel='stylesheet' type='text/css' href='../bower_components/bootstrap/dist/css/bootstrap.min.css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="styles/bootstrap.css"/>
+
+</head>
+
+<body ng-controller="displayController">
+  <div class='container'>
+    <div class="header">
+      <h1>Honest Food</h1>
+    </div>
+
+    <div class='col-md-6 col-md-offset-3 form-group'>
+      <form ng-submit="">
+        <div class="input-group">
+          <input type="text" class="form-control food-input" placeholder="New food" ng-model="newFood">
+          <span class="input-group-btn">
+            <button class ="btn btn-default" type="submit" ng-click="displayFoods(newFood)">
+              <a href=' #/searchresults'>Select</a></button>
+          </span>
+        </div>
+      </form>
+    </div>
+
+    <div ng-view></div>
+
+  </div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+<!--API KEY  kKJ078H1u9KjuD4DLAJK3nPUgFX4SoN2awG94IeR -->
