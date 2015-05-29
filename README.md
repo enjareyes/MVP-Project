@@ -1,4 +1,4 @@
 
 Try it out!
 
-http://development.food-finder.divshot.io/#/
+https://arcane-tor-7148.herokuapp.com/
