@@ -68,12 +68,12 @@ angular.module('app', ['ngRoute'])
 
   //will displayfood items that have same name as users search
   var displayFoods = function(foodName){ 
-    return $http.get('https://api.nal.usda.gov/usda/ndb/search/?format=json&q=' + foodName + '&sort=n&max=25&offset=0&api_key=kKJ078H1u9KjuD4DLAJK3nPUgFX4SoN2awG94IeR')
+    return $http.get('http://api.nal.usda.gov/usda/ndb/search/?format=json&q=' + foodName + '&sort=n&max=25&offset=0&api_key=kKJ078H1u9KjuD4DLAJK3nPUgFX4SoN2awG94IeR')
   }
 
   //after they've selected food item, will display nutritional info
   var showFoodInfo = function(ndbno) { 
-    return $http.get('https://api.nal.usda.gov/usda/ndb/reports/?ndbno=' + ndbno +'&type=b&format=json&api_key=kKJ078H1u9KjuD4DLAJK3nPUgFX4SoN2awG94IeR')
+    return $http.get('http://api.nal.usda.gov/usda/ndb/reports/?ndbno=' + ndbno +'&type=b&format=json&api_key=kKJ078H1u9KjuD4DLAJK3nPUgFX4SoN2awG94IeR')
     
     // return $http({
     //   method: "POST",
