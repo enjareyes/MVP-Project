@@ -74,18 +74,11 @@ angular.module('app', ['ngRoute'])
   //after they've selected food item, will display nutritional info
   var showFoodInfo = function(ndbno) { 
     return $http.get('http://api.nal.usda.gov/usda/ndb/reports/?ndbno=' + ndbno +'&type=b&format=json&api_key=kKJ078H1u9KjuD4DLAJK3nPUgFX4SoN2awG94IeR')
-    
-    // return $http({
-    //   method: "POST",
-    //   url: '/searchresults',
-    //   data: {
-    //     ndbo: ndbo
-    //   }
-    // })
   };
 
 
-  return {showFoodInfo: showFoodInfo, 
+  return {
+    showFoodInfo: showFoodInfo, 
     displayFoods: displayFoods, 
     searchItems: searchItems,
   }
