@@ -11,16 +11,4 @@ app.use(express.static('./client'));
 
 // exports = module.exports = app;
 
-// app.get('/searchresults', function(ndbo){
-//   request({
-//     url: 'http://api.nal.usda.gov/usda/ndb/reports/?ndbno=' + ndbno +'&type=b&format=json&api_key=kKJ078H1u9KjuD4DLAJK3nPUgFX4SoN2awG94IeR',
-//   },
-//   function(err,resp,body) {
-//     console.log(body)
-//     // var data = JSON.parse(body).map(function (repo) {
-//     //   return {name: repo.full_name, id: repo.id};
-//     // })
-//     res.status(200).json(data)
-//   });
-// })
 
