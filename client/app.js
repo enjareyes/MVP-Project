@@ -1,9 +1,20 @@
 //Enja's super awesome radical nutritional information app.
 angular.module('app', ['ngRoute'])
 
-// Using Angular. Yup, just Angular. No server, bro.
 .config(function($routeProvider) {
   $routeProvider
+    .when('/login', {
+      templateUrl: 'landing.html',
+      // controller: 'loginController'
+    })    
+    .when('/signup', {
+      templateUrl: 'signup.html',
+      // controller: 'loginController'
+    })
+    .when('/home', {
+      templateUrl: 'home.html',
+      controller: 'displayController'
+    })
     .when('/searchresults', {
       templateUrl: 'list-view.html',
       controller: 'displayController'
@@ -13,7 +24,7 @@ angular.module('app', ['ngRoute'])
       controller: 'nutritionalController'
     })        
     .otherwise({
-      redirectTo: '/'
+      redirectTo: '/login'
     });
 })
 
@@ -84,6 +95,12 @@ angular.module('app', ['ngRoute'])
   }
 })
 
+
+.controller('loginController', function($scope, $routeParams){ 
+
+
+
+})
 
 
 
