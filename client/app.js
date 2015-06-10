@@ -1,10 +1,20 @@
 //Enja's super awesome radical nutritional information app.
 angular.module('app', ['ngRoute'])
 
-// Using Angular. Yup, just Angular. No server, bro.
 .config(function($routeProvider) {
   $routeProvider
-    .when('/searchresults', {
+    .when('/login', {
+      templateUrl: 'landing.html',
+      // controller: 'loginController'
+    })    
+    .when('/signup', {
+      templateUrl: 'signup.html',
+      // controller: 'loginController'
+    })
+    .when('/home', {
+      templateUrl: 'home.html'
+    })
+    .when('/search/:newFood', {
       templateUrl: 'list-view.html',
       controller: 'displayController'
     })
@@ -13,7 +23,7 @@ angular.module('app', ['ngRoute'])
       controller: 'nutritionalController'
     })        
     .otherwise({
-      redirectTo: '/'
+      redirectTo: '/login'
     });
 })
 
@@ -52,57 +62,51 @@ angular.module('app', ['ngRoute'])
 })
 
 
-.controller('displayController', function($scope, Foods){
-  
-  $scope.displayFoods = function(foodName){ 
-    Foods.displayFoods(foodName).success(function(data, status, headers, config){
-      $scope.searchItems = data.list.item;
-    })
-  }
+.controller('displayController', function($routeParams, $scope, Foods){ 
+  $scope.searchItems = [];
+  console.log($routeParams.newFood);
+  Foods.displayFoods($routeParams.newFood).success(function(data, status, headers, config){
+    // console.log('data.list.item', data.list.item)
+    $scope.searchItems = data.list.item;
+    console.log($scope.searchItems);
+  })
 })
 
 
 .factory('Foods', function($http){
 
-  var searchItems = []; //array of objects containing food item/info
-
   //will displayfood items that have same name as users search
   var displayFoods = function(foodName){ 
-    return $http.get('http://api.nal.usda.gov/usda/ndb/search/?format=json&q=' + foodName + '&sort=n&max=25&offset=0&api_key=kKJ078H1u9KjuD4DLAJK3nPUgFX4SoN2awG94IeR')
+    return $http.get('/searchfood', {
+      params: {food: foodName}
+    })
+    .success(function(data, status, headers, config){
+      console.log('Success in displayFoods')
+      return data
+    })
   }
 
   //after they've selected food item, will display nutritional info
   var showFoodInfo = function(ndbno) { 
-    return $http.get('http://api.nal.usda.gov/usda/ndb/reports/?ndbno=' + ndbno +'&type=b&format=json&api_key=kKJ078H1u9KjuD4DLAJK3nPUgFX4SoN2awG94IeR')
+    return $http.get('/foodinfo', {
+      params: {ndbno: ndbno}
+    })
+    .success(function(data, status, headers, config){
+      console.log('Success in displayFoods')
+      return data
+    })
   };
-
 
   return {
     showFoodInfo: showFoodInfo, 
-    displayFoods: displayFoods, 
-    searchItems: searchItems,
+    displayFoods: displayFoods 
   }
 })
 
 
+.controller('loginController', function($scope, $routeParams){ 
 
-
-//In order for our service to get the proper information for the desired food, we must first locate the ndbno number of the food item.
-//NOTE: The ndbno number is a number that each food item in the USDA database is assigned. Think of it as a PLU code for each item in the supermarket.
-
-//To accomplish this, we must search on the usda api for a list of food items that have a name equal to (or similar to) the user's search.
-//This call will return a list of items that match the search term 'butter'
-
-//We will display these results to the user and allow them to select the proper item they are searching for.
-//Upon selection, we will make another call to the USDA api with the specfied ndbno number to get all of the nutritional information.
-
-//Call 1:
-// Replace {butter} in the URL with the user's search term
-//http://api.nal.usda.gov/usda/ndb/search/?format=json&q={butter}&sort=n&max=25&offset=0&api_key=DEMO_KEY 
-
-//Call 2:
-//Replace {11987} with the ndbno number of the food the user wants nutritional information on.
-//http://api.nal.usda.gov/usda/ndb/reports/?ndbno={11987}&type=b&format=fjson&api_key=DEMO_KEY
+})
 
 
 

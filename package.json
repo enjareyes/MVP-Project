@@ -8,6 +8,9 @@
     "bower": "^1.4.1",
     "express": "^4.12.4",
     "http": "^0.0.0",
+    "livedb": "^0.5.12",
+    "livedb-mongo": "^0.4.1",
+    "mongodb": "^2.0.33",
     "request": "^2.56.0"
   },
   "engines": {

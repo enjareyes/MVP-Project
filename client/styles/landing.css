@@ -1,0 +1,23 @@
+body {
+  background: linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), url('foodbackground.jpg') no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+}
+
+.login, .signup {
+  text-align: center;
+  padding: 3%;
+  border-radius: 10px;
+  /*background: rgba(255,255,255,0.5);  */
+  width: 35%;
+  margin: 0 auto;
+}
+
+a {
+  color: gray;
+}
+
+.link2 {
+  color: white;
+}
