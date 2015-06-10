@@ -1,9 +1,9 @@
-<div class='box col-md-6 col-md-offset-3'>
+<div class='box col-md-6 col-md-offset-3' ng-controller="displayController">
+  
   <ul>
     <span>
       <p class='search-results' ng-repeat="food in searchItems" >
-        <a href='#/nutrition/{{food.ndbno}}'> 
-        {{ food.name }} </a>
+        <a href='#/nutrition/{{food.ndbno}}'> {{ food.name }} </a>
       </p> 
     </span>
   </ul>
