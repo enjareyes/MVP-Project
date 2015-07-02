@@ -5,26 +5,66 @@ angular.module('app', ['ngRoute'])
   $routeProvider
     .when('/login', {
       templateUrl: 'landing.html',
-      // controller: 'loginController'
+      controller: 'loginController',
+      authenticate: false
     })    
     .when('/signup', {
       templateUrl: 'signup.html',
-      // controller: 'loginController'
+      controller: 'loginController',
+      authenticate: false
     })
     .when('/home', {
-      templateUrl: 'home.html'
+      templateUrl: 'home.html',
+      controller: 'loginController',
+      authenticate: true
     })
     .when('/search/:newFood', {
       templateUrl: 'list-view.html',
-      controller: 'displayController'
+      controller: 'displayController',
+      authenticate: true
     })
     .when('/nutrition/:ndbno', {
       templateUrl: 'nutritional-info.html',
-      controller: 'nutritionalController'
+      controller: 'nutritionalController',
+      authenticate: true
     })        
     .otherwise({
       redirectTo: '/login'
-    });
+    })
+})
+
+.run(function($rootScope, $location, globalAuth){
+  $rootScope.$on('$routeChangeStart', function(event, next){
+    $rootScope.path = $location.path();
+    $rootScope.authenticate = globalAuth.checkAuth();
+    var loggedIn = globalAuth.checkAuth();
+    console.log(loggedIn)
+
+    if(!loggedIn && next.$$route.authenticate){
+      console.log('!loggedin')
+      $location.path('/login');
+    } else if(loggedIn && $location.path() === '/home'){
+      console.log('loggedin')
+      $location.path('/home'); 
+    }else if(loggedIn && $location.path() === '/search:newFood'){
+      console.log('loggedin')
+      $location.path('/search:newFood'); 
+    }else if(loggedIn && $location.path() === '/nutrition/:ndbno'){
+      console.log('loggedin')
+      $location.path('/nutrition/:ndbno'); 
+    }
+  });
+})
+
+.factory('globalAuth', function(){
+
+  var checkAuth = function(){
+    //if token exists return true
+    console.log('checkauth',localStorage.getItem('token'))
+    return (!!localStorage.getItem('token'))  
+  };
+
+  return { checkAuth: checkAuth};
 })
 
 
@@ -34,7 +74,7 @@ angular.module('app', ['ngRoute'])
   Foods.showFoodInfo($routeParams.ndbno).success(function(data){
     var nutrients = data.report.food.nutrients //array of objects
     
-    for (var i = 0; i <nutrients.length; i++){
+    for (var i = 0; i < nutrients.length; i++){
       var current = nutrients[i]
       $scope.thisFood.measures = current.measures[0].qty +" "+ current.measures[0].label
       $scope.thisFood.fooditem = data.report.food.name
@@ -74,7 +114,6 @@ angular.module('app', ['ngRoute'])
 
 
 .factory('Foods', function($http){
-
   //will displayfood items that have same name as users search
   var displayFoods = function(foodName){ 
     return $http.get('/searchfood', {
@@ -104,9 +143,72 @@ angular.module('app', ['ngRoute'])
 })
 
 
-.controller('loginController', function($scope, $routeParams){ 
+.controller('loginController', function($scope, Auth){ 
+
+  $scope.login = function () {
+    var email = $scope.email,
+        pw = $scope.password;
+
+    Auth.login(email, pw);
+
+    //only redirect if user token is there.
+  };
+
+  $scope.signup = function () {
+    var email = $scope.email,
+        pw = $scope.password;
+
+    Auth.signup(email, pw);
+
+    //only redirect if user token is there.
+  };
+
+  $scope.logout = function(){
+    Auth.logout();
+  }
 
 })
+
+
+.factory('Auth', function($http, $location){
+
+  var signup = function (email, pw) {
+    return $http.get('/signup', {
+      params: {email: email, password: pw}
+    })
+    .success(function(data, status, headers, config){
+      console.log('Success in signup')
+      localStorage.setItem('token', data.token);
+      $location.path('/home'); 
+    })
+  };
+
+  var login = function (email, pw) {
+    return $http.get('/login', {
+      params: {email: email, password: pw}
+    })
+    .success(function(data, status, headers, config){
+      console.log('Success in login', data);
+      localStorage.setItem('token', data.token);
+      $location.path('/home'); 
+
+    })
+  };
+
+  var logout = function(){
+    console.log('loggingout')
+    //remove from local storage && redirect to login page
+    localStorage.removeItem('token'); 
+  }
+
+  return {
+    signup: signup,
+    login: login,
+    logout: logout
+  }
+})
+
+
 
 
 
