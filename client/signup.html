@@ -1,23 +1,28 @@
 <link rel='stylesheet' type='text/css' href='bower_components/bootstrap/dist/css/bootstrap.min.css'>
 <link rel='stylesheet' type='text/css' href='styles/landing.css'>
 
-<div class='signup form-horizontal'>
+<div class='signup form-horizontal' ng-controller='loginController'>
+  
+  <div class="header">
+    <h1>Honest Food</h1>
+  </div>
+
   <form action="#" class='form-group'>
 
     <div class="form-group">
        <div class="col-sm-12">
-         <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+         <input type="text" class="form-control" id="inputEmail3" placeholder="Email" ng-model='email'>
        </div>
      </div>
 
     <div class="form-group">
       <div class="col-sm-12">
-        <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+        <input type="password" class="form-control" id="inputPassword3" placeholder="Password" ng-model='password'>
       </div>
     </div>
 
-    <button type="submit" class="float btn btn-default">
-      <a href= '#/home'>Signup</a>
+    <button class="float btn btn-default" ng-click='signup()'>
+      <a href='#/home'>Signup</a>
     </button>
 
     <a href='#/login' class='link2'>Login</a>
