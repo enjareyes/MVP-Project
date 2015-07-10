@@ -58,12 +58,10 @@ app.get('/login',function(req,res){
       secret = 'eatgoodfood',
       token = JWT.encode(payload, secret);
 
+
   DB.collection('users').findOne({email: email}, function(err, result){
     if (result){ //user exists - log them in
-      res.send({token: token})
-    } else {
-      //user must sign up
-      //redirect to signup page or show pop up and redirect
+      res.send({token: token, email: email})
     } 
   })
 })
@@ -85,16 +83,42 @@ app.get('/signup',function(req,res){
       var salt = bcrypt.genSaltSync(10),
           hash = bcrypt.hashSync(password, salt);
 
-      DB.collection('users').insert({email:email, password: hash})
-      res.send({token:token})
+      DB.collection('users').insert({email:email, password: hash, saved:[]})
+      res.send({token:token, email: email, saved:[]})
     }
   })
 });
 
+app.get('/savefood', function(req,res){
+  var foodInfo = req.query,
+      email = req.query.email;
+
+  // console.log('saving food in server',foodInfo)
+  //save foodinfo to users favorites in DB
+  DB.collection('users').update(
+    // { email: email },
+    { email: email, 'fooditem': {$ne: foodInfo.fooditem}}, 
+    { $push: {saved: foodInfo } }
+  )
+  DB.collection('users').findOne({email: email}, function(err, result){
+    if (result){ //found user - add the food
+      console.log('found user',result.saved)
+      res.send({food: result.saved})
+    } 
+  })
+})
 
 
+app.get('/getFavorites', function(req, res){
+  var email = req.query.email;
 
-
+  DB.collection('users').findOne({email: email}, function(err, result){
+    if (result){ //found user - return saved foods
+      // console.log('saved foods:',result.saved)
+      res.send({food: result.saved})
+    } 
+  })
+})
 
 
 

@@ -53,4 +53,18 @@ h1 {
   cursor: default;
 }
 
+.save {
+  float: right;
+  cursor: default;
+  color: #00CD00;
+}
+
+.save:hover {
+  color:gray;
+}
+
+.navbar-default {
+  background: rgba(255,255,255,0.9);  
+}
+
 
