@@ -49,16 +49,16 @@ angular.module('app', ['ngRoute'])
       console.log('!loggedin')
       $location.path('/login');
     } else if(loggedIn && $location.path() === '/home'){
-      console.log('loggedin')
+      // console.log('loggedin')
       $location.path('/home'); 
     }else if(loggedIn && $location.path() === '/search:newFood'){
-      console.log('loggedin')
+      // console.log('loggedin')
       $location.path('/search:newFood'); 
     }else if(loggedIn && $location.path() === '/nutrition/:ndbno'){
-      console.log('loggedin')
+      // console.log('loggedin')
       $location.path('/nutrition/:ndbno'); 
     }else if(loggedIn && $location.path() === '/profile'){
-      console.log('loggedin')
+      // console.log('loggedin')
       $location.path('/profile'); 
     }
   });

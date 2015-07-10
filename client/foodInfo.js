@@ -54,7 +54,7 @@ angular.module('app')
   Foods.getFavorites().success(function(data, status, headers, config){
     //save data to $scope.favorites to display on profile page
     $scope.favorites = data.food;
-    console.log('favs', $scope.favorites)
+    // console.log('favs', $scope.favorites)
   })
 })
 
@@ -90,7 +90,7 @@ angular.module('app')
       params: foodObj 
     })
     .success(function(data, status, headers, config){
-      console.log('Success in saveFood:', data)
+      // console.log('Success in saveFood:', data)
       $location.path("/profile");
     })
   }
