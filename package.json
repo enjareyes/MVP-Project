@@ -5,6 +5,7 @@
   "main": "server/server.js",
   "dependencies": {
     "angular-route": "^1.4.0",
+    "bcrypt": "^0.8.3",
     "bower": "^1.4.1",
     "express": "^4.12.4",
     "http": "^0.0.0",
