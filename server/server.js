@@ -23,7 +23,6 @@ MongoClient.connect(url, function(err, db) {
   DB = db;
 });
 
-// exports = module.exports = app;
 
 app.get('/searchfood',function(req,res){
   var foodName = req.query.food,

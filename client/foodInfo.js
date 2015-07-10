@@ -78,7 +78,6 @@ angular.module('app')
       params: {ndbno: ndbno}
     })
     .success(function(data, status, headers, config){
-      // console.log('Success in showFoodInfo')
       return data
     })
   };
