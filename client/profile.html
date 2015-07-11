@@ -26,6 +26,7 @@
     <span>
       <p class='search-results' ng-repeat="food in favorites" >
         <a> {{ food.fooditem }} </a>
+        <a class='remove' ng-click ='remove(food); reloadRoute()'> remove </a> 
       </p> 
     </span>
   </ul>

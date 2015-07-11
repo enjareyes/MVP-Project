@@ -95,7 +95,6 @@ app.get('/savefood', function(req,res){
   // console.log('saving food in server',foodInfo)
   //save foodinfo to users favorites in DB
   DB.collection('users').update(
-    // { email: email },
     { email: email, 'fooditem': {$ne: foodInfo.fooditem}}, 
     { $push: {saved: foodInfo } }
   )
@@ -113,11 +112,27 @@ app.get('/getFavorites', function(req, res){
 
   DB.collection('users').findOne({email: email}, function(err, result){
     if (result){ //found user - return saved foods
-      // console.log('saved foods:',result.saved)
       res.send({food: result.saved})
     } 
   })
 })
 
+app.get('/removeFavorite', function(req, res){
+  var email = req.query.email,
+      ndbno = req.query.id;
+
+  DB.collection('users').update(
+    { email: email },
+    { $pull: { 'saved': { ndbno: ndbno } } }
+  );
+
+  DB.collection('users').findOne({email: email}, function(err, result){
+    if (result){ //found user - add the food
+      console.log('found user',result.saved)
+      res.send({food: result.saved})
+    } 
+  })
+
+})
 
 

@@ -29,6 +29,8 @@ angular.module('app')
       if (nutrients[i].name === 'Fiber, total dietary'){
         $scope.thisFood.fiber = current.value + current.unit
       }
+
+      $scope.thisFood.ndbno = $routeParams.ndbno;
     }
   })
 
@@ -38,24 +40,14 @@ angular.module('app')
   $scope.searchItems = [];
 
   Foods.displayFoods($routeParams.newFood).success(function(data, status, headers, config){
-    // console.log('data.list.item', data.list.item)
-    $scope.searchItems = data.list.item;
+    console.log('data.list.item', data.list.item)
+    if (data['errors']) {
+      $scope.searchItems = [{name:'No Results'}]
+    } else $scope.searchItems = data.list.item;
   })
 
   //allowing the 'saveFood()' on ng-click
   $scope.saveFood = Foods.saveFood; 
-})
-
-
-.controller('profileController', function($scope, Foods){
-  $scope.favorites = [];
-
-  //call Foods.getFavorites and access saved data
-  Foods.getFavorites().success(function(data, status, headers, config){
-    //save data to $scope.favorites to display on profile page
-    $scope.favorites = data.food;
-    // console.log('favs', $scope.favorites)
-  })
 })
 
 .factory('Foods', function($http, $location){
@@ -95,23 +87,10 @@ angular.module('app')
     })
   }
 
-  var getFavorites = function(){
-    var email = localStorage.getItem('email')
-
-    return $http.get('/getFavorites', {
-      params: {email: email}
-    })
-    .success(function(data, status, headers, config){
-      // console.log('Success in getFavorites:')
-      return data;
-    })
-  }
-
   return {
     showFoodInfo: showFoodInfo, 
     displayFoods: displayFoods,
-    saveFood: saveFood,
-    getFavorites: getFavorites
+    saveFood: saveFood
   }
 })
 
