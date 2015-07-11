@@ -30,7 +30,7 @@ angular.module('app')
     })
     .success(function(data, status, headers, config){
       localStorage.setItem('email', data.email);
-      console.log('Success in signup')
+      // console.log('Success in signup')
       localStorage.setItem('token', data.token);
       $location.path('/home'); 
     })
@@ -42,7 +42,7 @@ angular.module('app')
     })
     .success(function(data, status, headers, config){
       localStorage.setItem('email', data.email);
-      console.log('Success in login', data);
+      // console.log('Success in login', data);
       localStorage.setItem('token', data.token);
       $location.path('/home'); 
 

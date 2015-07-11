@@ -50,26 +50,6 @@ angular.module('app')
   $scope.saveFood = Foods.saveFood; 
 })
 
-
-.controller('profileController', function($scope, Foods, $window){
-  $scope.favorites = [];
-
-  //call Foods.getFavorites and access saved data
-  Foods.getFavorites().success(function(data, status, headers, config){
-    //save data to $scope.favorites to display on profile page
-    $scope.favorites = data.food;
-  })
-
-  $scope.remove = function(food){
-    Foods.remove(food.ndbno);
-  }
-
-  $scope.reloadRoute = function() {
-     $window.location.reload();
-  }
-
-})
-
 .factory('Foods', function($http, $location){
   var foodInfo = {};
 
@@ -107,37 +87,10 @@ angular.module('app')
     })
   }
 
-  var getFavorites = function(){
-    var email = localStorage.getItem('email')
-
-    return $http.get('/getFavorites', {
-      params: {email: email}
-    })
-    .success(function(data, status, headers, config){
-      // console.log('Success in getFavorites:')
-      return data;
-    })
-  }
-
-  var remove = function(id){
-    console.log('removing',id);
-    var email = localStorage.getItem('email')
-
-    return $http.get('/removeFavorite', {
-      params: {email: email, id: id}
-    })
-    .success(function(data, status, headers, config){
-      console.log('Success in removefood')
-      // $location.path("/profile");
-    })
-  }
-
   return {
     showFoodInfo: showFoodInfo, 
     displayFoods: displayFoods,
-    saveFood: saveFood,
-    getFavorites: getFavorites,
-    remove:remove
+    saveFood: saveFood
   }
 })
 
