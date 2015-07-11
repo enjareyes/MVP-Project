@@ -7,7 +7,6 @@ angular.module('app')
         pw = $scope.password;
 
     Auth.login(email, pw);
-    //only redirect if user token is there.
   };
 
   $scope.signup = function () {
@@ -15,13 +14,11 @@ angular.module('app')
         pw = $scope.password;
 
     Auth.signup(email, pw);
-    //only redirect if user token is there.
   };
 
   $scope.logout = function(){
     Auth.logout();
   }
-
 })
 
 

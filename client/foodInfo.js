@@ -29,6 +29,8 @@ angular.module('app')
       if (nutrients[i].name === 'Fiber, total dietary'){
         $scope.thisFood.fiber = current.value + current.unit
       }
+
+      $scope.thisFood.ndbno = $routeParams.ndbno;
     }
   })
 
@@ -38,8 +40,10 @@ angular.module('app')
   $scope.searchItems = [];
 
   Foods.displayFoods($routeParams.newFood).success(function(data, status, headers, config){
-    // console.log('data.list.item', data.list.item)
-    $scope.searchItems = data.list.item;
+    console.log('data.list.item', data.list.item)
+    if (data['errors']) {
+      $scope.searchItems = [{name:'No Results'}]
+    } else $scope.searchItems = data.list.item;
   })
 
   //allowing the 'saveFood()' on ng-click
@@ -47,15 +51,23 @@ angular.module('app')
 })
 
 
-.controller('profileController', function($scope, Foods){
+.controller('profileController', function($scope, Foods, $window){
   $scope.favorites = [];
 
   //call Foods.getFavorites and access saved data
   Foods.getFavorites().success(function(data, status, headers, config){
     //save data to $scope.favorites to display on profile page
     $scope.favorites = data.food;
-    // console.log('favs', $scope.favorites)
   })
+
+  $scope.remove = function(food){
+    Foods.remove(food.ndbno);
+  }
+
+  $scope.reloadRoute = function() {
+     $window.location.reload();
+  }
+
 })
 
 .factory('Foods', function($http, $location){
@@ -107,11 +119,25 @@ angular.module('app')
     })
   }
 
+  var remove = function(id){
+    console.log('removing',id);
+    var email = localStorage.getItem('email')
+
+    return $http.get('/removeFavorite', {
+      params: {email: email, id: id}
+    })
+    .success(function(data, status, headers, config){
+      console.log('Success in removefood')
+      // $location.path("/profile");
+    })
+  }
+
   return {
     showFoodInfo: showFoodInfo, 
     displayFoods: displayFoods,
     saveFood: saveFood,
-    getFavorites: getFavorites
+    getFavorites: getFavorites,
+    remove:remove
   }
 })
 
