@@ -7,7 +7,6 @@ angular.module('app')
   Profile.getFavorites().success(function(data, status, headers, config){
     //save data to $scope.favorites to display on profile page
     $scope.favorites = data.food;
-    console.log('favs',$scope.favorites)
   })
 
   $scope.remove = function(food){
@@ -28,22 +27,18 @@ angular.module('app')
       params: {email: email}
     })
     .success(function(data, status, headers, config){
-      // console.log('Success in getFavorites:')
       return data;
     })
   }
 
   var remove = function(id){
-    console.log('removing',id);
     var email = localStorage.getItem('email')
-
     return $http.get('/removeFavorite', {
       params: {email: email, id: id}
     })
-    .success(function(data, status, headers, config){
-      console.log('Success in removefood')
-      // $location.path("/profile");
-    })
+    // .success(function(data, status, headers, config){
+    //   console.log('Success in removefood')
+    // })
   }
 
   return {

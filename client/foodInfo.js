@@ -33,7 +33,6 @@ angular.module('app')
       $scope.thisFood.ndbno = $routeParams.ndbno;
     }
   })
-
 })
 
 .controller('displayController', function($routeParams, $scope, Foods){ 
@@ -59,7 +58,6 @@ angular.module('app')
       params: {food: foodName}
     })
     .success(function(data, status, headers, config){
-      // console.log('Success in displayFoods')
       return data
     })
   }
@@ -82,7 +80,6 @@ angular.module('app')
       params: foodObj 
     })
     .success(function(data, status, headers, config){
-      // console.log('Success in saveFood:', data)
       $location.path("/profile");
     })
   }

@@ -16,7 +16,6 @@ app.listen(app.get('port'), function() { console.log('Node app running on port',
 app.use(express.static('./client'));
 
 var url = process.env.MONGOLAB_URI || keys.MONGOLAB_URI 
-//mongodb://localhost:3000/honestFood
 
 MongoClient.connect(url, function(err, db) {
   console.log("Connected correctly to server");
@@ -75,7 +74,6 @@ app.get('/signup',function(req,res){
   //check db - if email doesn't exist then add it
   DB.collection('users').findOne({email: email}, function(err, result){
     if (result){ //user exists - log them in
-      console.log('user exists- logging them in')
       res.send({token: token})
     } else { 
       console.log('creating new user') //add user to db
@@ -100,7 +98,6 @@ app.get('/savefood', function(req,res){
   )
   DB.collection('users').findOne({email: email}, function(err, result){
     if (result){ //found user - add the food
-      console.log('found user',result.saved)
       res.send({food: result.saved})
     } 
   })
@@ -128,7 +125,6 @@ app.get('/removeFavorite', function(req, res){
 
   DB.collection('users').findOne({email: email}, function(err, result){
     if (result){ //found user - add the food
-      console.log('found user',result.saved)
       res.send({food: result.saved})
     } 
   })
