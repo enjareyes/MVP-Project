@@ -7,6 +7,7 @@ angular.module('app')
   Profile.getFavorites().success(function(data, status, headers, config){
     //save data to $scope.favorites to display on profile page
     $scope.favorites = data.food;
+    console.log('favs',$scope.favorites)
   })
 
   $scope.remove = function(food){
