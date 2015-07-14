@@ -17,7 +17,7 @@
 <br>
 
 <div class="header">
-  <h1>Favorites</h1>
+  <p class-'hf'>Favorites</p>
 </div>
 
 <div class='box col-md-6 col-md-offset-3' ng-controller="profileController">
@@ -25,7 +25,7 @@
   <ul>
     <span>
       <p class='search-results' ng-repeat="food in favorites" >
-        <a> {{ food.fooditem }} </a>
+        <a href='#/nutrition/{{food.ndbno}}'> {{ food.fooditem }} </a>
         <a class='remove' ng-click ='remove(food); reloadRoute()'> remove </a> 
       </p> 
     </span>

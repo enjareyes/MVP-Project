@@ -6,7 +6,7 @@ body {
   color: ;
 }
 
-h1 {
+.hf {
   text-shadow: 2px 2px 2px gray;
 }
 
@@ -16,7 +16,8 @@ h1 {
   text-align: center;
   color: white;
   margin: 30px;
-  margin-top: 10%;
+  margin-top: 8%;
+  font-size: 3em;
 }
 
 .box {
