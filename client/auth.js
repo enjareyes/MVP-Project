@@ -30,7 +30,7 @@ angular.module('app')
     })
     .success(function(data, status, headers, config){
       localStorage.setItem('email', data.email);
-      // console.log('Success in signup')
+      // console.log('Signup success')
       localStorage.setItem('token', data.token);
       $location.path('/home'); 
     })
@@ -42,7 +42,7 @@ angular.module('app')
     })
     .success(function(data, status, headers, config){
       localStorage.setItem('email', data.email);
-      // console.log('Success in login', data);
+      //console.log('Login success')
       localStorage.setItem('token', data.token);
       $location.path('/home'); 
 
@@ -50,8 +50,6 @@ angular.module('app')
   };
 
   var logout = function(){
-    console.log('loggingout')
-    //remove from local storage && redirect to login page
     localStorage.removeItem('token'); 
     localStorage.removeItem('email'); 
   }

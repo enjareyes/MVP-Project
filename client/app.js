@@ -43,7 +43,6 @@ angular.module('app', ['ngRoute'])
     $rootScope.path = $location.path();
     $rootScope.authenticate = globalAuth.checkAuth();
     var loggedIn = globalAuth.checkAuth();
-    // console.log(loggedIn)
 
     if(!loggedIn && next.$$route.authenticate){
       console.log('!loggedin')
@@ -64,11 +63,10 @@ angular.module('app', ['ngRoute'])
 
   var checkAuth = function(){
     //if token exists return true
-    console.log('checkauth',localStorage.getItem('token'))
     return (!!localStorage.getItem('token'))  
   };
 
-  return { checkAuth: checkAuth};
+  return { checkAuth: checkAuth };
 })
 
 
